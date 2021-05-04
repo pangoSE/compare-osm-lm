@@ -5,15 +5,39 @@
 
 	<!-- Import after general Leaflet package -->
 	<script src="./dist/leaflet.wmts.browser.min.js"></script>
+		
+	<title>OpenStreetMap compared with Lantmäteriet Topographic map (CC-BY)</title>
 </head>
 <body>
 	<div id="table">
 	<table width="100%">
 		<tbody>
-	    <tr id="tr1"><td></td></tr>
-	    <tr id="tr2"><td></td></tr>
+	    <tr id="osm"><td></td></tr>
+	    <tr id="lm"><td></td></tr>
 	  </tbody>
 	</table>
 	</div>
+	<script>
+		const lm = L.map("map", {
+			center: [55.702355, 38.012695], // Moscow
+			zoom: 7
+		});
+
+		/** Url to WMTS server */
+		const url = "https://mapy.geoportal.gov.pl/wss/service/WMTS/guest/wmts/ORTO"
+
+		/** WMTS tile options */
+		const wmtsOptions = {
+			layer: "",
+			style: "",
+			tilematrixset: "EPSG:2180",
+			format: "image/png",
+			attribution: "&copy;"
+		};
+
+		const wmts = new L.TileLayer.WMTS(url, wmtsOptions);
+
+		lm.addLayer(wmts);
+	</script>
 </body>
 </html>
